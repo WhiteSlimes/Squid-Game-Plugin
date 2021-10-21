@@ -1,0 +1,5 @@
+name: SquidGame
+version: '${project.version}'
+main: fr.papon.squidgame.Main
+api-version: 1.17
+authors: [ Papon ]
