@@ -3,3 +3,9 @@ version: '${project.version}'
 main: fr.papon.squidgame.Main
 api-version: 1.17
 authors: [ Papon ]
+commands:
+  nick:
+    aliases: name
+    description: Permet de rename
+  start:
+    description: Permet de lancer la partie

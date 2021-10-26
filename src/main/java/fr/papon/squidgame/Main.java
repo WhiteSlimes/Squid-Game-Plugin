@@ -1,5 +1,7 @@
 package fr.papon.squidgame;
 
+import fr.papon.squidgame.Features.commands.Commands;
+import fr.papon.squidgame.Features.listener.Listener;
 import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
@@ -70,6 +72,8 @@ public final class Main extends JavaPlugin {
         spigotLogger = Bukkit.getLogger();
         spigotLogger.info("Loading Data...");
         spigotLogger.info("---> Squid Game Plugin enabled <---");
+        new Commands().register();
+        new Listener().register();
     }
 
     public void notifyEnd(){
@@ -163,7 +167,7 @@ public final class Main extends JavaPlugin {
 
         private CommandExecutor getExecutor(){
             return (sender, command, label, args) -> {
-                if (!sender.isOp() && Command.this.isOpOnly(commandName)){
+                if (!sender.isOp() && Command.this.isOpOnly()){
                     sender.sendMessage("Commande pour les Maîtres du jeu seulement.");
                     return true;
                 }
@@ -174,7 +178,7 @@ public final class Main extends JavaPlugin {
 
         private TabCompleter getTabCompleter(){
             return (sender, command, alias, args) -> {
-                if (!sender.isOp() && Command.this.isOpOnly(commandName)){
+                if (!sender.isOp() && Command.this.isOpOnly()){
                     return new ArrayList<>();
                 }
                 return Command.this.myOnTabComplete(sender, command, alias, args);
@@ -187,10 +191,7 @@ public final class Main extends JavaPlugin {
             }
         }
 
-        protected boolean isOpOnly(String cmd)
-        {
-            return !COMMANDS_ALLOW.contains(cmd);
-        }
+        protected boolean isOpOnly() { return true; }
 
         public static class DisabledCompleter implements TabCompleter
         {
